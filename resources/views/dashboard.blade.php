@@ -1,127 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - HealthyFlow</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+@extends('layouts.app')
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fcfcfc; /* Putih sedikit abu biar mata nyaman */
-        }
+@section('content')
+<h2 class="section-title">Your Daily Progress</h2>
+<p class="section-subtitle">Track your wellness metrics at a glance</p>
 
-        /* 1. Styling Navbar Lonjong di Tengah */
-        .nav-pill-custom {
-            background-color: #e6e6e6; /* Abu-abu muda sesuai gambar */
-            border-radius: 50px;       /* Membuat sudut sangat bulat */
-            padding: 10px 30px;
-            display: inline-flex;
-            gap: 30px;                 /* Jarak antar menu */
-        }
-        .nav-link-custom {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-        .nav-link-custom:hover {
-            color: #000;
-        }
-
-        /* 2. Styling Card Water (Biru Pastel) */
-        .card-water {
-            background-color: #d0e8ea; /* Warna biru pastel sesuai gambar */
-            border: 1px solid #b0d0d3;
-            border-radius: 20px;
-            height: 180px;             /* Tinggi fix biar rapi */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .card-water:hover {
-            transform: translateY(-5px); /* Efek naik dikit pas dihover */
-        }
-
-        /* 3. Styling Card Activity (Putih) */
-        .card-activity {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .card-activity:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-title {
-            font-weight: 600;
-            font-size: 18px;
-            color: #000;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container py-4">
-
-        <div class="d-flex justify-content-between align-items-center mb-5">
-            <h4 class="fw-bold mb-0">HealthyFlow</h4>
-
-            <div class="d-none d-md-block"> <div class="nav-pill-custom">
-                    <a href="#" class="nav-link-custom fw-bold">Dashboard</a>
-                    <a href="#" class="nav-link-custom">Logs</a>
-                    <a href="#" class="nav-link-custom">Gallery</a>
-                    <a href="#" class="nav-link-custom">Settings</a>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card p-4 h-100">
+            <h6 class="fw-bold mb-3">Daily Hydration</h6>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="fw-bold text-teal" style="color: var(--hf-primary);">1500 ml</h1>
+                    <small class="text-muted">Target : 2000 ml</small>
                 </div>
+                <i class="bi bi-droplet-fill text-primary fs-1"></i>
             </div>
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn btn-link text-dark text-decoration-none fw-medium" style="font-size: 14px;">
-                    Log out
-                </button>
-            </form>
-        </div>
-
-        <div class="mb-5">
-            <h3 class="fw-medium">
-                Hi, {{ Auth::user()->name }}! Stay Hydrated 💧✨
-            </h3>
-        </div>
-
-        <div class="row g-4">
-
-            <div class="col-md-4">
-                <a href="#" class="text-decoration-none">
-                    <div class="card-water">
-                        <span class="card-title">Daily Water Intake</span>
-                    </div>
-                </a>
+            <div class="progress mt-3" style="height: 10px; border-radius: 10px;">
+                <div class="progress-bar" role="progressbar" style="width: 75%; background-color: var(--hf-primary);" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-
-            <div class="col-md-4">
-                <a href="#" class="text-decoration-none">
-                    <div class="card-activity">
-                        <span class="card-title">Weekly Activity</span>
-                    </div>
-                </a>
-            </div>
-
+            <small class="mt-2 d-block text-muted">75% of daily goal</small>
         </div>
-
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <div class="col-md-6">
+        <div class="card p-4 h-100">
+            <h6 class="fw-bold mb-3">Daily Activity</h6>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="fw-bold text-success">60 mins</h1>
+                    <small class="text-muted">Target : 40 mins</small>
+                </div>
+                <i class="bi bi-person-running text-warning fs-1"></i>
+            </div>
+            <div class="progress mt-3" style="height: 10px; border-radius: 10px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small class="mt-2 d-block text-muted">100% of daily goal</small>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h6 class="fw-bold mb-4">Weekly Hydration</h6>
+            <div class="d-flex justify-content-around align-items-end" style="height: 150px;">
+                @foreach([40, 30, 30, 50, 30, 45, 60] as $h)
+                    <div class="text-center">
+                        <div style="width: 20px; height: {{ $h*2 }}px; background-color: var(--hf-primary); border-radius: 4px 4px 0 0;"></div>
+                        <small style="font-size: 10px;">Day</small>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h6 class="fw-bold mb-4">Weekly Activity</h6>
+            <div class="d-flex justify-content-around align-items-end" style="height: 150px;">
+                @foreach([40, 35, 35, 50, 30, 40, 55] as $a)
+                    <div class="text-center">
+                        <div style="width: 20px; height: {{ $a*2 }}px; background-color: #6da252; border-radius: 4px 4px 0 0;"></div>
+                        <small style="font-size: 10px;">Day</small>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
