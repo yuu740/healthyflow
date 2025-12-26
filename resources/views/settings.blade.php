@@ -1,62 +1,87 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 class="section-title">Settings</h2>
-<p class="section-subtitle">Customize your HealthyFlow experience</p>
+<div class="mb-4">
+    <h4 class="fw-bold m-0">{{ __('settings.title') }}</h4>
+    <p class="text-muted small">{{ __('settings.subtitle') }}</p>
+</div>
 
-<div class="card p-4 mb-4">
-    <h6 class="fw-bold mb-4">Localization</h6>
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+    <h6 class="fw-bold mb-4 d-flex align-items-center gap-2">
+        <i class="bi bi-translate text-teal"></i> {{ __('settings.localization') }}
+    </h6>
 
-    <div class="mb-4">
-        <label class="d-block mb-2 text-muted small">Water Volume Unit</label>
-        <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="unit" id="ml" autocomplete="off">
-            <label class="btn btn-outline-secondary border-0 bg-light text-dark" for="ml">Milliliters (ml)</label>
+    <div class="row g-4">
+        <div class="col-12">
+            <label class="d-block mb-2 text-muted small fw-bold text-uppercase ls-1">{{ __('settings.unit_label') }}</label>
+            <div class="btn-group w-100 p-1 bg-light rounded-3" role="group">
+                <input type="radio" class="btn-check" name="unit" id="ml" autocomplete="off" checked>
+                <label class="btn btn-outline-hf border-0 rounded-3 py-2 fw-semibold" for="ml">Metric (ml/kg)</label>
 
-            <input type="radio" class="btn-check" name="unit" id="oz" autocomplete="off" checked>
-            <label class="btn btn-teal" for="oz">Fluid Ounces (oz)</label>
+                <input type="radio" class="btn-check" name="unit" id="oz" autocomplete="off">
+                <label class="btn btn-outline-hf border-0 rounded-3 py-2 fw-semibold" for="oz">Imperial (oz/lbs)</label>
+            </div>
         </div>
-    </div>
 
-    <div>
-        <label class="d-block mb-2 text-muted small">Interface Language</label>
-        <div class="btn-group" role="group">
-            <input type="radio" class="btn-check" name="lang" id="en" autocomplete="off">
-            <label class="btn btn-outline-secondary border-0 bg-light text-dark" for="en">English</label>
-
-            <input type="radio" class="btn-check" name="lang" id="id" autocomplete="off" checked>
-            <label class="btn btn-success" style="background-color: #6da252; border-color: #6da252;" for="id">Indonesia</label>
+        <div class="col-12">
+            <label class="d-block mb-2 text-muted small fw-bold text-uppercase ls-1">{{ __('settings.lang_label') }}</label>
+            <div class="d-flex gap-2">
+                <a href="{{ route('switch.language', 'en') }}"
+                   class="btn w-50 py-2 fw-bold {{ app()->getLocale() == 'en' ? 'btn-teal' : 'btn-light text-dark border' }} rounded-3 shadow-sm">
+                   English
+                </a>
+                <a href="{{ route('switch.language', 'id') }}"
+                   class="btn w-50 py-2 fw-bold {{ app()->getLocale() == 'id' ? 'btn-teal' : 'btn-light text-dark border' }} rounded-3 shadow-sm">
+                   Indonesia
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="card p-4 mb-4">
-    <h6 class="fw-bold mb-4">Account Settings</h6>
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+    <h6 class="fw-bold mb-4 d-flex align-items-center gap-2">
+        <i class="bi bi-person-fill-gear text-teal"></i> {{ __('settings.account_settings') }}
+    </h6>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-4 p-2 rounded-3 bg-light bg-opacity-50">
         <div>
-            <div class="small text-muted">Email</div>
-            <div>ppp@gmail.com</div>
+            <div class="small text-muted fw-bold text-uppercase ls-1" style="font-size: 10px;">Email Address</div>
+            <div class="text-truncate fw-semibold" style="max-width: 150px;">{{ Session::get('user_email', 'ppp@gmail.com') }}</div>
         </div>
-        <button class="btn btn-light btn-sm px-3">Change Email</button>
+        <button class="btn btn-white btn-sm px-3 shadow-sm border rounded-pill">{{ __('settings.change_email') }}</button>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 p-2 rounded-3 bg-light bg-opacity-50">
         <div>
-            <div class="small text-muted">Password</div>
-            <div>*********</div>
+            <div class="small text-muted fw-bold text-uppercase ls-1" style="font-size: 10px;">Password</div>
+            <div class="fw-semibold">••••••••</div>
         </div>
-        <button class="btn btn-light btn-sm px-3">Change Password</button>
+        <button class="btn btn-white btn-sm px-3 shadow-sm border rounded-pill">{{ __('settings.change_password') }}</button>
     </div>
 
-    <button class="btn btn-danger px-4">Logout</button>
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-danger w-100 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+            <i class="bi bi-box-arrow-right"></i> {{ __('settings.logout') }}
+        </button>
+    </form>
 </div>
 
-<div class="card p-4">
-    <h6 class="fw-bold mb-3">About Healthy Flow</h6>
-    <p class="small text-muted mb-4">
-        HealthyFlow is your personal wellness companion, helping you track daily hydration and activity metrics to maintain a healthier lifestyle.
+<div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+    <h6 class="fw-bold mb-2">{{ __('settings.about_title') }}</h6>
+    <p class="small text-muted mb-4 lh-base">
+        {{ __('settings.about_desc') }}
     </p>
-    <small class="text-muted">Version 1.0 • © 2025 HealthyFlow</small>
+    <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+        <small class="text-muted fw-bold">{{ __('settings.version') }} 1.0</small>
+        <small class="text-muted">© 2025 HealthyFlow</small>
+    </div>
 </div>
+
+<style>
+    .ls-1 { letter-spacing: 0.5px; }
+    .btn-outline-hf { color: #64748b; background: transparent; }
+    .btn-check:checked + .btn-outline-hf { background: #fff !important; color: var(--hf-primary) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }
+</style>
 @endsection
