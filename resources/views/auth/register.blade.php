@@ -1,45 +1,26 @@
 <x-guest-layout>
-    <div class="card card-custom p-4 bg-white">
-        <div class="card-body">
-            <h4 class="fw-bold mb-4">Create Account</h4>
-
-            @if ($errors->any())
-                <div class="alert alert-danger py-2 mb-3">
-                    <ul class="mb-0 small">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-
-                <div class="mb-3">
-                    <label class="form-label small fw-bold text-muted">Email</label>
-                    <input type="email" name="email" class="form-control input-custom" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label small fw-bold text-muted">Password</label>
-                    <input type="password" name="password" class="form-control input-custom" required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label small fw-bold text-muted">Confirm Password</label>
-                    <input type="password" name="password_confirmation" class="form-control input-custom" required>
-                </div>
-
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-green">Create Account</button>
-                </div>
-            </form>
+    <div class="auth-card">
+        <h3 class="fw-bold mb-1">{{ __('auth.join_us') }}</h3>
+        <p class="text-muted small mb-4">{{ __('auth.register_subtitle') }}</p>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">{{ __('auth.email_short') }}</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">{{ __('auth.password') }}</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label small fw-bold text-muted">{{ __('auth.confirm_password') }}</label>
+                <input type="password" name="password_confirmation" class="form-control" required>
+            </div>
+            <button type="submit" class="btn-primary-custom shadow-sm">{{ __('auth.create_account') }}</button>
+        </form>
+        <div class="text-center mt-4">
+            <span class="text-muted small">{{ __('auth.already_have_account') }}</span>
+            <a href="{{ route('login') }}" class="text-decoration-none fw-bold" style="color: #00695c;">{{ __('auth.sign_in') }}</a>
         </div>
-    </div>
-
-    <div class="text-center mt-4">
-        <span class="text-muted small">Already have an account?</span>
-        <a href="{{ route('login') }}" class="text-teal small">Login</a>
     </div>
 </x-guest-layout>
