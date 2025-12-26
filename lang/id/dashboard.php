@@ -5,6 +5,7 @@ return [
         'home' => 'Beranda',
         'logs' => 'Catatan',
         'gallery' => 'Galeri',
+        'timer' => 'Timer',
         'settings' => 'Pengaturan',
     ],
     'title' => 'Progres Harian',
@@ -12,6 +13,8 @@ return [
     'insight' => [
         'title' => 'Tahukah Kamu?',
         'content' => 'Dehidrasi ringan (kurang 2% cairan tubuh) dapat menurunkan konsentrasi dan menyebabkan sakit kepala. Minumlah sebelum haus!',
+        'dehydration' => 'Dehidrasi menyebabkan darah mengental, memaksa jantung bekerja lebih keras. Minum sekarang!',
+        'sleep_deprivation' => 'Kurang tidur memperlambat metabolisme dan meningkatkan kortisol (hormon stres).',
     ],
     'metrics' => [
         'water' => 'Asupan Air',
@@ -25,5 +28,11 @@ return [
         'hours' => 'jam',
         'mins' => 'menit',
         'goal' => 'Target',
+    ],
+    'fasting' => [
+        'title' => 'Pelacak Puasa',
+        'status_fasting' => 'Berpuasa',
+        'status_eating' => 'Jendela Makan',
+        'timer' => 'Sisa Waktu',
     ],
 ];

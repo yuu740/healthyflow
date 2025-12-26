@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HealthyFlow</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -79,6 +79,14 @@
         .bottom-nav-link i { font-size: 1.4rem; margin-bottom: 2px; }
         .bottom-nav-link.active { color: var(--hf-primary); }
     </style>
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="desktop-msg p-5">
@@ -126,6 +134,10 @@
             <a href="{{ route('gallery') }}" class="bottom-nav-link {{ request()->routeIs('gallery') ? 'active' : '' }}">
                 <i class="bi {{ request()->routeIs('gallery') ? 'bi-images' : 'bi-image' }}"></i>
                 <span>{{ __('dashboard.nav.gallery') }}</span>
+            </a>
+            <a href="{{ route('healthy_timer') }}" class="bottom-nav-link {{ request()->routeIs('healthy_timer') ? 'active' : '' }}">
+                <i class="bi {{ request()->routeIs('healthy_timer') ? 'bi-stopwatch-fill' : 'bi-stopwatch-fill' }}"></i>
+                <span>{{ __('dashboard.nav.timer') }}</span>
             </a>
             <a href="{{ route('settings') }}" class="bottom-nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">
                 <i class="bi {{ request()->routeIs('settings') ? 'bi-gear-fill' : 'bi-gear' }}"></i>

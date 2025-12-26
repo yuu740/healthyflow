@@ -41,6 +41,35 @@
 
 <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
     <h6 class="fw-bold mb-4 d-flex align-items-center gap-2">
+        <i class="bi bi-bullseye text-teal"></i> {{ __('settings.target_title') }}
+    </h6>
+
+    <form action="{{ route('update.goals') }}" method="POST">
+        @csrf
+        <div class="mb-3">
+            <label class="small text-muted fw-bold mb-1">{{ __('settings.hydration_goal') }}</label>
+            <div class="input-group">
+                <input type="number" name="water_goal" class="form-control border-0 bg-light py-2" value="{{ Session::get('user_goals.water', 2000) }}">
+                <select name="unit" class="input-group-text border-0 bg-light">
+                    <option value="ml" {{ Session::get('user_goals.unit') == 'ml' ? 'selected' : '' }}>ml</option>
+                    <option value="oz" {{ Session::get('user_goals.unit') == 'oz' ? 'selected' : '' }}>oz</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="small text-muted fw-bold mb-1">{{ __('settings.activity_goal') }} (mins)</label>
+            <input type="number" name="activity_goal" class="form-control border-0 bg-light py-2" value="{{ Session::get('user_goals.activity', 45) }}">
+        </div>
+
+        <button type="submit" class="btn btn-teal w-100 py-2 rounded-3 shadow-sm fw-bold">
+            {{ __('settings.btn_update') }}
+        </button>
+    </form>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+    <h6 class="fw-bold mb-4 d-flex align-items-center gap-2">
         <i class="bi bi-person-fill-gear text-teal"></i> {{ __('settings.account_settings') }}
     </h6>
 

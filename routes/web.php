@@ -59,11 +59,30 @@ Route::middleware([GuestSession::class])->group(function () {
 Route::middleware([AuthSession::class])->group(function () {
 
     Route::get('/dashboard', function () {
+        $goals = Session::get('user_goals', [
+            'water' => 2000,
+            'activity' => 45,
+            'unit' => 'ml'
+        ]);
         $progress = Session::get('daily_progress');
         $weekly = Session::get('weekly_data');
-        return view('dashboard', compact('progress', 'weekly'));
+        return view('dashboard', compact('progress', 'weekly', 'goals'));
     })->name('dashboard');
 
+    Route::get('/timer', function () {
+        return view('healthy_timer');
+    })->name('healthy_timer');
+
+    Route::post('/settings/update-goals', function (Illuminate\Http\Request $request) {
+        Session::put('user_goals', [
+            'water' => $request->water_goal,
+            'activity' => $request->activity_goal,
+            'unit' => $request->unit
+        ]);
+        return redirect()->back()->with('success', 'Targets updated!');
+    })->name('update.goals');
+
+    
     Route::get('/logs', function () {
         return view('daily_logs');
     })->name('daily_logs');
@@ -76,8 +95,10 @@ Route::middleware([AuthSession::class])->group(function () {
         return view('settings');
     })->name('settings');
 
-Route::post('/logout', function () {
-    Session::forget(['user_logged_in', 'user_name', 'user_email', 'daily_progress', 'weekly_data']);
-    return redirect()->route('welcome');
-})->name('logout');
+    Route::post('/logout', function () {
+        $locale = Session::get('locale');
+        Session::flush();
+        Session::put('locale', $locale);
+        return redirect()->route('welcome');
+    })->name('logout');
 });

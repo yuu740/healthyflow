@@ -24,11 +24,10 @@
             <div class="d-flex justify-content-between mb-2">
                 <i class="bi bi-droplet-fill text-primary fs-5"></i>
                 <span class="badge bg-white text-dark shadow-sm rounded-pill py-1 px-2" style="font-size: 10px;">
-                    {{ __('dashboard.units.goal') }}: 2{{ __('dashboard.units.liter') }}
+                    Goal: {{ $goals['water'] }}{{ $goals['unit'] }}
                 </span>
             </div>
-            <h3 class="fw-bold mb-0 text-dark">1.5 <span class="fs-6 text-muted">{{ __('dashboard.units.liter') }}</span></h3>
-            <small class="text-muted display-block mb-2">{{ __('dashboard.metrics.water') }}</small>
+            <h3 class="fw-bold mb-0 text-dark">{{ $progress['water_intake'] }} <span class="fs-6 text-muted">{{ $goals['unit'] }}</span></h3>            <small class="text-muted display-block mb-2">{{ __('dashboard.metrics.water') }}</small>
             <div class="progress" style="height: 6px;">
                 <div class="progress-bar bg-primary" style="width: 75%"></div>
             </div>
