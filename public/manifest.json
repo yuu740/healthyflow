@@ -1,0 +1,21 @@
+{
+    "name": "HealthyFlow",
+    "short_name": "HealthyFlow",
+    "start_url": "/",
+    "background_color": "#f8f9fa",
+    "theme_color": "#00695c",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "https://via.placeholder.com/192x192.png?text=HF",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://via.placeholder.com/512x512.png?text=HF",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
