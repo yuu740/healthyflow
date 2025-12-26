@@ -1,125 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HealthyFlow</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <meta name="theme-color" content="#00695c">
     <style>
         :root {
-            --hf-primary: #00695c; /* Teal gelap sesuai gambar */
-            --hf-bg: #f8f9fa;
+            --hf-primary: #00695c;
+            --hf-primary-light: #e0f2f1;
+            --hf-accent: #ffab00;
+            --hf-bg: #f5f7fa;
+            --hf-text: #2d3748;
+            --app-max-width: 480px;
         }
+
         body {
-            background-color: var(--hf-bg);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e2e8f0;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
         }
-        /* Sidebar Styling */
-        .sidebar {
+
+        @media (min-width: 501px) {
+            body {
+                background: linear-gradient(135deg, #004d40 0%, #00695c 100%);
+                display: flex; align-items: center; justify-content: center; height: 100vh;
+                color: white; text-align: center;
+            }
+            #app-container { display: none !important; }
+            .desktop-msg { display: block !important; }
+        }
+        .desktop-msg { display: none; }
+
+        #app-container {
+            width: 100%;
+            max-width: var(--app-max-width);
+            background-color: #ffffff;
             min-height: 100vh;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding-bottom: 90px;
+        }
+
+        .top-bar {
             background: white;
-            border-right: 1px solid #e0e0e0;
+            position: sticky; top: 0; z-index: 1020;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #f1f1f1;
         }
-        .nav-link {
-            color: #555;
-            font-weight: 500;
-            padding: 10px 15px;
-            margin-bottom: 5px;
-            border-radius: 8px;
+
+        .bottom-nav {
+            max-width: var(--app-max-width);
+            width: 100%;
+            left: 50%; transform: translateX(-50%);
+            background: white;
+            height: 70px;
+            border-top: 1px solid #eee;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.03);
         }
-        .nav-link:hover {
-            background-color: #f0f0f0;
-            color: var(--hf-primary);
+
+        .bottom-nav-link {
+            text-decoration: none;
+            color: #94a3b8;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 500;
+            width: 25%;
+            transition: all 0.2s;
         }
-        .nav-link.active {
-            background-color: #e0f2f1; /* Light teal */
-            color: var(--hf-primary);
-        }
-        .nav-link i {
-            margin-right: 10px;
-        }
-        /* Common Components */
-        .btn-teal {
-            background-color: var(--hf-primary);
-            color: white;
-            border: none;
-        }
-        .btn-teal:hover {
-            background-color: #004d40;
-            color: white;
-        }
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .section-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .section-subtitle {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-        /* Avatar Placeholder */
-        .logo-box {
-            background-color: #e0f2f1;
-            color: var(--hf-primary);
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-right: 10px;
-        }
+
+        .bottom-nav-link i { font-size: 1.4rem; margin-bottom: 2px; }
+        .bottom-nav-link.active { color: var(--hf-primary); }
     </style>
 </head>
 <body>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2 p-4 sidebar d-flex flex-column justify-content-between">
-            <div>
-                <div class="d-flex align-items-center mb-4">
-                    <div class="logo-box">HF</div>
-                    <div>
-                        <h5 class="m-0 fw-bold">HealthyFlow</h5>
-                        <small class="text-muted" style="font-size: 10px;">Your wellness companion</small>
-                    </div>
-                </div>
-
-                <nav class="nav flex-column">
-                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                        <i class="bi bi-bar-chart-fill"></i> Dashboard
-                    </a>
-                    <a class="nav-link {{ request()->routeIs('logs') ? 'active' : '' }}" href="{{ route('logs') }}">
-                        <i class="bi bi-journal-text"></i> Daily logs
-                    </a>
-                    <a class="nav-link {{ request()->routeIs('gallery') ? 'active' : '' }}" href="{{ route('gallery') }}">
-                        <i class="bi bi-image"></i> Gallery
-                    </a>
-                    <a class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}" href="{{ route('settings') }}">
-                        <i class="bi bi-gear-fill"></i> Settings
-                    </a>
-                </nav>
-            </div>
-
-            <div class="text-muted small">
-                &copy; 2025 HealthyFlow
-            </div>
-        </div>
-
-        <div class="col-md-10 p-5">
-            @yield('content')
+    <div class="desktop-msg p-5">
+        <h2 class="fw-bold mb-3">{{ __('welcome.desktop_warning_title') }}</h2>
+        <p class="mb-4 opacity-75">{{ __('welcome.desktop_warning_desc') }}</p>
+        <div class="bg-white text-dark py-3 px-4 rounded-4 shadow-sm fw-bold d-inline-block">
+            <i class="bi bi-phone me-2"></i> {{ __('welcome.desktop_warning_btn') }}
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div id="app-container">
+        <div class="top-bar d-flex align-items-center justify-content-between">
+             <div class="d-flex align-items-center">
+                <div class="me-2 d-flex align-items-center justify-content-center rounded-3 text-white fw-bold"
+                     style="width:36px; height:36px; background: var(--hf-primary);">HF</div>
+                <div>
+                    <h6 class="m-0 fw-bold text-dark" style="line-height: 1.2;">HealthyFlow</h6>
+                    <small class="text-muted" style="font-size: 11px;">Hello, User!</small>
+                </div>
+            </div>
+            <div class="d-flex gap-3">
+                <a href="#" class="btn-notif"><i class="bi bi-bell fs-5"></i><span class="badge-dot"></span></a>
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="border-0 bg-transparent text-secondary p-0">
+                        <i class="bi bi-box-arrow-right fs-5"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="px-3 py-4">
+            @yield('content')
+        </div>
+
+        <nav class="bottom-nav fixed-bottom d-flex justify-content-between align-items-center px-2">
+            <a href="{{ route('dashboard') }}" class="bottom-nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <i class="bi {{ request()->routeIs('dashboard') ? 'bi-grid-fill' : 'bi-grid' }}"></i>
+                <span>{{ __('dashboard.nav.home') }}</span>
+            </a>
+            <a href="{{ route('daily_logs') }}" class="bottom-nav-link {{ request()->routeIs('daily_logs') ? 'active' : '' }}">
+                <i class="bi {{ request()->routeIs('daily_logs') ? 'bi-journal-plus' : 'bi-journal' }}"></i>
+                <span>{{ __('dashboard.nav.logs') }}</span>
+            </a>
+            <a href="{{ route('gallery') }}" class="bottom-nav-link {{ request()->routeIs('gallery') ? 'active' : '' }}">
+                <i class="bi {{ request()->routeIs('gallery') ? 'bi-images' : 'bi-image' }}"></i>
+                <span>{{ __('dashboard.nav.gallery') }}</span>
+            </a>
+            <a href="{{ route('settings') }}" class="bottom-nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">
+                <i class="bi {{ request()->routeIs('settings') ? 'bi-gear-fill' : 'bi-gear' }}"></i>
+                <span>{{ __('dashboard.nav.settings') }}</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

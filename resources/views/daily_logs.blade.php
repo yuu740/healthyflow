@@ -1,56 +1,73 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 class="section-title">Daily Logs</h2>
-<p class="section-subtitle">Create, edit, and manage your daily health entries</p>
+<h4 class="fw-bold mb-1">{{ __('logs.title') }}</h4>
+<p class="text-muted small mb-4">{{ __('logs.subtitle') }}</p>
 
-<div class="card p-4 mb-4">
-    <h6 class="fw-bold mb-3">Add Today's Log</h6>
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+    <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
+        <i class="bi bi-plus-circle-fill text-teal"></i> {{ __('logs.add_title') }}
+    </h6>
     <form>
-        <div class="row g-3">
-            <div class="col-md-5">
-                <input type="number" class="form-control bg-light border-0" placeholder="Water (ml)">
-            </div>
-            <div class="col-md-5">
-                <input type="number" class="form-control bg-light border-0" placeholder="Activity (minutes)">
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-teal w-100 fw-bold">Add Log</button>
+        <div class="mb-3">
+            <label class="small text-muted fw-bold mb-1">{{ __('logs.field.water') }}</label>
+            <div class="input-group">
+                <span class="input-group-text border-0 bg-light rounded-start-3"><i class="bi bi-droplet text-primary"></i></span>
+                <input type="number" class="form-control border-0 bg-light py-2 rounded-end-3" placeholder="{{ __('logs.field.placeholder_water') }}">
             </div>
         </div>
+
+        <div class="mb-3">
+            <label class="small text-muted fw-bold mb-1">{{ __('logs.field.sleep') }}</label>
+            <div class="input-group">
+                <span class="input-group-text border-0 bg-light rounded-start-3"><i class="bi bi-moon-stars text-purple" style="color:#7b1fa2;"></i></span>
+                <input type="number" step="0.1" class="form-control border-0 bg-light py-2 rounded-end-3" placeholder="{{ __('logs.field.placeholder_sleep') }}">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="small text-muted fw-bold mb-1">{{ __('logs.field.activity') }}</label>
+            <div class="input-group">
+                <span class="input-group-text border-0 bg-light rounded-start-3"><i class="bi bi-fire text-warning"></i></span>
+                <input type="number" class="form-control border-0 bg-light py-2 rounded-end-3" placeholder="{{ __('logs.field.placeholder_activity') }}">
+            </div>
+        </div>
+
+        <button type="button" class="btn w-100 fw-bold py-2 text-white" style="background-color: var(--hf-primary); border-radius: 12px;">
+            {{ __('logs.btn_save') }}
+        </button>
     </form>
 </div>
 
-<div class="card p-3 mb-3">
+<h6 class="fw-bold mb-3 small text-muted text-uppercase ls-1">{{ __('logs.history_title') }}</h6>
+
+<div class="card border-0 shadow-sm rounded-4 p-3 mb-2 bg-white">
     <div class="d-flex justify-content-between align-items-center">
-        <div>
-            <div class="fw-bold small mb-1">2025-11-28</div>
-            <div class="d-flex align-items-center text-muted">
-                <span class="me-3"><i class="bi bi-droplet-fill text-primary"></i> 1000 ml</span>
-                <span><i class="bi bi-person-running text-warning"></i> 50 min</span>
+        <div class="d-flex align-items-center gap-3">
+            <div class="bg-light rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="bi bi-droplet-fill text-primary"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-dark">{{ __('logs.type.water') }}</h6>
+                <small class="text-muted">08:30 AM</small>
             </div>
         </div>
-        <div>
-            <button class="btn btn-sm btn-secondary text-white fw-bold px-3">Edit</button>
-            <button class="btn btn-sm btn-outline-danger fw-bold px-3 ms-2">Delete</button>
-        </div>
+        <span class="fw-bold text-primary">+250 ml</span>
     </div>
 </div>
 
-<div class="card p-3 bg-light border-0">
-    <div class="row g-2 align-items-center">
-        <div class="col-md-4">
-            <input type="text" class="form-control form-control-sm" value="1000 ml">
+<div class="card border-0 shadow-sm rounded-4 p-3 mb-2 bg-white">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+            <div class="bg-light rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="bi bi-moon-fill" style="color: #7b1fa2;"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-dark">{{ __('logs.type.sleep') }}</h6>
+                <small class="text-muted">{{ __('logs.time.last_night') }}</small>
+            </div>
         </div>
-        <div class="col-md-4">
-            <input type="text" class="form-control form-control-sm" value="50 min">
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-sm btn-teal w-100">Save</button>
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-sm btn-white border w-100">Cancel</button>
-        </div>
+        <span class="fw-bold" style="color: #7b1fa2;">7 {{ __('dashboard.units.hours') }}</span>
     </div>
 </div>
 @endsection
