@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('water_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->integer('amount_ml');
+            $table->dateTime('logged_at');
             $table->timestamps();
         });
     }

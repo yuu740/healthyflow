@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('activity_name');
+            $table->integer('duration_minutes');
+            $table->dateTime('logged_at');
             $table->timestamps();
         });
     }

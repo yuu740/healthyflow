@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('food_diaries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('food_name');
+            $table->string('image_path'); 
+            $table->text('notes')->nullable();
+            $table->dateTime('logged_at');
             $table->timestamps();
         });
     }
