@@ -17,7 +17,9 @@ class ActivityLogFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'activity_name' => fake()->randomElement(['Lari Pagi', 'Yoga', 'Angkat Beban', 'Sepeda Statis', 'Berenang']),
+            'duration_minutes' => fake()->numberBetween(15, 90),
+            'logged_at' => fake()->dateTimeBetween('-7 days', 'now'),
         ];
     }
 }

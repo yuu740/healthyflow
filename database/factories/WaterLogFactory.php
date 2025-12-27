@@ -17,7 +17,8 @@ class WaterLogFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'amount_ml' => fake()->randomElement([250, 330, 500, 600]),
+            'logged_at' => fake()->dateTimeBetween('-7 days', 'now'),
         ];
     }
 }

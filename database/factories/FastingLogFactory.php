@@ -16,8 +16,13 @@ class FastingLogFactory extends Factory
      */
     public function definition(): array
     {
+        $start = fake()->dateTimeBetween('-7 days', '-1 days');
+        $end = (clone $start)->modify('+' . fake()->numberBetween(12, 18) . ' hours');
+
         return [
-            //
+            'start_time' => $start,
+            'end_time' => $end,
+            'target_duration_hours' => 16,
         ];
     }
 }
