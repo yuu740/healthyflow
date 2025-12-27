@@ -9,4 +9,14 @@ class ActivityLog extends Model
 {
     /** @use HasFactory<\Database\Factories\ActivityLogFactory> */
     use HasFactory;
+
+    protected $fillable = ['user_id', 'activity_name', 'duration_minutes', 'logged_at'];
+
+    protected $casts = [
+        'logged_at' => 'datetime',
+    ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -9,4 +9,14 @@ class WaterLog extends Model
 {
     /** @use HasFactory<\Database\Factories\WaterLogFactory> */
     use HasFactory;
+
+    protected $fillable = ['user_id', 'amount_ml', 'logged_at'];
+
+    protected $casts = [
+        'logged_at' => 'datetime',
+    ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
