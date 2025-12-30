@@ -82,7 +82,7 @@ Route::middleware([AuthSession::class])->group(function () {
         return redirect()->back()->with('success', 'Targets updated!');
     })->name('update.goals');
 
-    
+
     Route::get('/logs', function () {
         return view('daily_logs');
     })->name('daily_logs');
@@ -95,6 +95,11 @@ Route::middleware([AuthSession::class])->group(function () {
         return view('settings');
     })->name('settings');
 
+    Route::get('/settings/about', function () {
+        return view('about');
+    })->name('about');
+
+
     Route::post('/logout', function () {
         $locale = Session::get('locale');
         Session::flush();
@@ -102,3 +107,5 @@ Route::middleware([AuthSession::class])->group(function () {
         return redirect()->route('welcome');
     })->name('logout');
 });
+
+

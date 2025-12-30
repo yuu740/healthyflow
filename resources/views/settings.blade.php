@@ -102,6 +102,11 @@
     <p class="small text-muted mb-4 lh-base">
         {{ __('settings.about_desc') }}
     </p>
+
+    <a href="{{ route('about') }}" class="btn btn-outline-teal w-100 py-2 rounded-3 fw-bold mb-4">
+        <i class="bi bi-info-circle me-2"></i> {{ __('about.title') }}
+    </a>
+
     <div class="d-flex justify-content-between align-items-center pt-3 border-top">
         <small class="text-muted fw-bold">{{ __('settings.version') }} 1.0</small>
         <small class="text-muted">© 2025 HealthyFlow</small>
