@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            // Default 'ml' (Milliliters) atau 'oz' (Ounces)
+            $table->string('preferred_unit')->default('ml');
+            // Default 'id' (Indonesia) atau 'en' (English)
+            $table->string('preferred_locale')->default('id');
             $table->rememberToken();
             $table->timestamps();
         });
