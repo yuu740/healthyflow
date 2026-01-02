@@ -18,6 +18,8 @@ class UserSeeder extends Seeder
                 'name' => 'Mahasiswa Test',
                 'email' => 'test@example.com',
                 'password' => bcrypt('password'),
+                'preferred_unit' => 'ml', 
+                'preferred_locale' => 'id',
             ]);
         }
     }
