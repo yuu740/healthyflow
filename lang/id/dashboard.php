@@ -4,7 +4,7 @@ return [
     'nav' => [
         'home' => 'Beranda',
         'logs' => 'Catatan',
-        'gallery' => 'Galeri',
+        'gallery' => 'Jurnal Visual',
         'timer' => 'Timer',
         'settings' => 'Pengaturan',
     ],
