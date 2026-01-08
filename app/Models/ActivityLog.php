@@ -14,6 +14,7 @@ class ActivityLog extends Model
 
     protected $casts = [
         'logged_at' => 'datetime',
+        'duration_minutes' => 'integer',
     ];
 
     public function user() {

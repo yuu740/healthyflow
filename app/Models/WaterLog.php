@@ -14,6 +14,7 @@ class WaterLog extends Model
 
     protected $casts = [
         'logged_at' => 'datetime',
+        'amount_ml' => 'integer',
     ];
 
     public function user() {

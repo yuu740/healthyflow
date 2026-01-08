@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Middleware\AuthSession;
 use App\Http\Middleware\GuestSession;
+use App\Http\Controllers\WaterLogController;
+use App\Http\Controllers\FoodDiaryController;
+use App\Http\Controllers\FastingLogController;
+use App\Http\Controllers\ActivityLogController;
 
 App::setLocale(Session::get('locale', config('app.locale')));
 
@@ -86,6 +90,16 @@ Route::middleware([AuthSession::class])->group(function () {
     Route::get('/logs', function () {
         return view('daily_logs');
     })->name('daily_logs');
+
+    Route::post('/logs/water', [WaterLogController::class, 'store'])->name('logs.water.store');
+
+    Route::post('/logs/food', [FoodDiaryController::class, 'store'])->name('logs.food.store');
+
+    Route::post('/logs/activity', [ActivityLogController::class, 'store'])->name('logs.activity.store');
+    Route::delete('/logs/activity/{activityLog}', [ActivityLogController::class, 'destroy'])->name('logs.activity.destroy');
+
+    Route::post('/logs/fasting', [FastingLogController::class, 'store'])->name('logs.fasting.store');
+    Route::put('/logs/fasting/{fastingLog}', [FastingLogController::class, 'update'])->name('logs.fasting.update');
 
     Route::get('/gallery', function () {
         return view('gallery');
