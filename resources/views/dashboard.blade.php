@@ -24,12 +24,17 @@
             <div class="d-flex justify-content-between mb-2">
                 <i class="bi bi-droplet-fill text-primary fs-5"></i>
                 <span class="badge bg-white text-dark shadow-sm rounded-pill py-1 px-2" style="font-size: 10px;">
-                    Goal: {{ $goals['water'] }}{{ $goals['unit'] }}
+                    Goal: {{ $goals['water'] }} {{ $goals['unit'] }}
                 </span>
             </div>
-            <h3 class="fw-bold mb-0 text-dark">{{ $progress['water_intake'] }} <span class="fs-6 text-muted">{{ $goals['unit'] }}</span></h3>            <small class="text-muted display-block mb-2">{{ __('dashboard.metrics.water') }}</small>
+            <h3 class="fw-bold mb-0 text-dark">{{ $todayWater }} <span class="fs-6 text-muted">{{ $goals['unit'] }}</span></h3>
+            <small class="text-muted display-block mb-2">{{ __('dashboard.metrics.water') }}</small>
+
+            @php
+                $waterPercent = $goals['water'] > 0 ? ($todayWater / $goals['water']) * 100 : 0;
+            @endphp
             <div class="progress" style="height: 6px;">
-                <div class="progress-bar bg-primary" style="width: 75%"></div>
+                <div class="progress-bar bg-primary" style="width: {{ $waterPercent }}%"></div>
             </div>
         </div>
     </div>
@@ -39,35 +44,29 @@
             <div class="d-flex justify-content-between mb-2">
                 <i class="bi bi-moon-stars-fill text-purple fs-5" style="color: #7b1fa2;"></i>
                 <span class="badge bg-white text-dark shadow-sm rounded-pill py-1 px-2" style="font-size: 10px;">
-                    {{ __('dashboard.units.goal') }}: 8{{ __('dashboard.units.hours') }}
+                    Goal: {{ $goals['sleep'] }}h
                 </span>
             </div>
-            <h3 class="fw-bold mb-0 text-dark">6.5 <span class="fs-6 text-muted">{{ __('dashboard.units.hours') }}</span></h3>
+            <h3 class="fw-bold mb-0 text-dark">{{ $todaySleep }} <span class="fs-6 text-muted">{{ __('dashboard.units.hours') }}</span></h3>
             <small class="text-muted display-block mb-2">{{ __('dashboard.metrics.sleep') }}</small>
+
+            @php $sleepPercent = ($todaySleep / $goals['sleep']) * 100; @endphp
             <div class="progress" style="height: 6px;">
-                <div class="progress-bar" style="width: 80%; background-color: #7b1fa2;"></div>
+                <div class="progress-bar" style="width: {{ $sleepPercent }}%; background-color: #7b1fa2;"></div>
             </div>
         </div>
     </div>
 
     <div class="col-12">
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="bg-warning bg-opacity-10 p-2 rounded-3 text-warning">
-                        <i class="bi bi-person-walking fs-4"></i>
-                    </div>
-                    <div>
-                        <h6 class="fw-bold mb-0">{{ __('dashboard.metrics.activity') }}</h6>
-                        <small class="text-muted">{{ __('dashboard.metrics.activity_desc') }}</small>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <h5 class="fw-bold mb-0 text-success">45 <span class="fs-6 text-muted">{{ __('dashboard.units.mins') }}</span></h5>
+            <div class="text-end">
+                    <h5 class="fw-bold mb-0 text-success">{{ $todayActivity }} <span class="fs-6 text-muted">{{ __('dashboard.units.mins') }}</span></h5>
+                    <small class="text-muted" style="font-size: 10px">Target: {{ $goals['activity'] }}</small>
                 </div>
             </div>
+            @php $actPercent = $goals['activity'] > 0 ? ($todayActivity / $goals['activity']) * 100 : 0; @endphp
             <div class="progress" style="height: 8px; border-radius: 10px;">
-                <div class="progress-bar bg-warning" style="width: 60%"></div>
+                <div class="progress-bar bg-warning" style="width: {{ $actPercent }}%"></div>
             </div>
         </div>
     </div>
@@ -76,10 +75,15 @@
 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
     <h6 class="fw-bold mb-4">{{ __('dashboard.weekly') }}</h6>
     <div class="d-flex justify-content-between align-items-end" style="height: 100px;">
-        @foreach(['M','T','W','T','F','S','S'] as $index => $day)
-            <div class="text-center d-flex flex-column align-items-center gap-2">
-                <div style="width: 8px; height: {{ rand(30, 80) }}%; background-color: {{ $index == 6 ? '#00695c' : '#e2e8f0' }}; border-radius: 10px;"></div>
-                <small class="text-muted" style="font-size: 10px;">{{ $day }}</small>
+        @foreach($weekly as $data)
+            <div class="text-center d-flex flex-column align-items-center gap-2" style="width: 100%;">
+                @php
+                    $height = $data['value'] > 100 ? 100 : $data['value'];
+                    $color = $data['is_today'] ? '#00695c' : '#e2e8f0';
+                @endphp
+
+                <div style="width: 8px; height: {{ $height }}%; background-color: {{ $color }}; border-radius: 10px; min-height: 4px;"></div>
+                <small class="text-muted" style="font-size: 10px;">{{ $data['day'] }}</small>
             </div>
         @endforeach
     </div>

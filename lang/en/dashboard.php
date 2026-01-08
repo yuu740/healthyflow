@@ -4,7 +4,7 @@ return [
     'nav' => [
         'home' => 'Home',
         'logs' => 'Logs',
-        'gallery' => 'Gallery',
+        'gallery' => 'Visual Diary',
         'timer' => 'Timer',
         'settings' => 'Settings',
     ],

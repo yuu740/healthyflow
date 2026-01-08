@@ -22,7 +22,11 @@ class User extends Authenticatable
         'email',
         'password',
         'preferred_unit',
-        'preferred_locale'
+        'preferred_locale',
+        'water_goal',
+        'activity_goal',
+        'sleep_goal',
+        'preferred_ringtone_id'
     ];
 
     /**
@@ -63,4 +67,9 @@ class User extends Authenticatable
     public function fastingLogs() {
         return $this->hasMany(FastingLog::class);
     }
+
+    public function sleepLogs() {
+        return $this->hasMany(SleepLog::class);
+    }
+
 }
