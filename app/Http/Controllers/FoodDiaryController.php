@@ -10,7 +10,7 @@ class FoodDiaryController extends Controller
     {
         $request->validate([
             'food_name' => 'required|string|max:255',
-            'image'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image'     => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'notes'     => 'nullable|string',
             'logged_at' => 'required|date',
         ]);
@@ -25,6 +25,6 @@ class FoodDiaryController extends Controller
 
         FoodDiary::create($data);
 
-        return redirect()->route('daily_logs')->with('success', 'Meal saved successfully!');
+        return redirect()->route('gallery')->with('success', 'Meal saved successfully!');
     }
 }
