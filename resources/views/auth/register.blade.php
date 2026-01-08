@@ -4,6 +4,11 @@
         <p class="text-muted small mb-4">{{ __('auth.register_subtitle') }}</p>
         <form method="POST" action="{{ route('register') }}">
             @csrf
+
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-muted">{{ __('Nama Lengkap') }}</label>
+                <input type="text" name="name" class="form-control" required autofocus>
+            </div>
             <div class="mb-3">
                 <label class="form-label small fw-bold text-muted">{{ __('auth.email_short') }}</label>
                 <input type="email" name="email" class="form-control" required>

@@ -99,12 +99,12 @@
 
     <div id="app-container">
         <div class="top-bar d-flex align-items-center justify-content-between">
-             <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center">
                 <div class="me-2 d-flex align-items-center justify-content-center rounded-3 text-white fw-bold"
-                     style="width:36px; height:36px; background: var(--hf-primary);">HF</div>
+                    style="width:36px; height:36px; background: var(--hf-primary);">HF</div>
                 <div>
                     <h6 class="m-0 fw-bold text-dark" style="line-height: 1.2;">HealthyFlow</h6>
-                    <small class="text-muted" style="font-size: 11px;">Hello, User!</small>
+                    <small class="text-muted" style="font-size: 11px;">Hello, {{ Auth::user()->name ?? 'User' }}!</small>
                 </div>
             </div>
             <div class="d-flex gap-3">
@@ -132,8 +132,8 @@
                 <span>{{ __('dashboard.nav.logs') }}</span>
             </a>
             <a href="{{ route('gallery') }}" class="bottom-nav-link {{ request()->routeIs('gallery') ? 'active' : '' }}">
-                <i class="bi {{ request()->routeIs('gallery') ? 'bi-images' : 'bi-image' }}"></i>
-                <span>{{ __('dashboard.nav.gallery') }}</span>
+                <i class="bi {{ request()->routeIs('gallery') ? 'bi-camera-fill' : 'bi-camera' }}"></i>
+                <span style="font-size: 9px; white-space: nowrap;">{{ __('dashboard.nav.gallery') ?? 'Jurnal' }}</span>
             </a>
             <a href="{{ route('healthy_timer') }}" class="bottom-nav-link {{ request()->routeIs('healthy_timer') ? 'active' : '' }}">
                 <i class="bi {{ request()->routeIs('healthy_timer') ? 'bi-stopwatch-fill' : 'bi-stopwatch-fill' }}"></i>
