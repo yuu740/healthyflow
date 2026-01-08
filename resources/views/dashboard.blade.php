@@ -75,10 +75,15 @@
 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
     <h6 class="fw-bold mb-4">{{ __('dashboard.weekly') }}</h6>
     <div class="d-flex justify-content-between align-items-end" style="height: 100px;">
-        @foreach(['M','T','W','T','F','S','S'] as $index => $day)
-            <div class="text-center d-flex flex-column align-items-center gap-2">
-                <div style="width: 8px; height: {{ rand(30, 80) }}%; background-color: {{ $index == 6 ? '#00695c' : '#e2e8f0' }}; border-radius: 10px;"></div>
-                <small class="text-muted" style="font-size: 10px;">{{ $day }}</small>
+        @foreach($weekly as $data)
+            <div class="text-center d-flex flex-column align-items-center gap-2" style="width: 100%;">
+                @php
+                    $height = $data['value'] > 100 ? 100 : $data['value'];
+                    $color = $data['is_today'] ? '#00695c' : '#e2e8f0';
+                @endphp
+
+                <div style="width: 8px; height: {{ $height }}%; background-color: {{ $color }}; border-radius: 10px; min-height: 4px;"></div>
+                <small class="text-muted" style="font-size: 10px;">{{ $data['day'] }}</small>
             </div>
         @endforeach
     </div>

@@ -25,7 +25,8 @@ class User extends Authenticatable
         'preferred_locale',
         'water_goal',
         'activity_goal',
-        'sleep_goal' 
+        'sleep_goal',
+        'preferred_ringtone_id'
     ];
 
     /**

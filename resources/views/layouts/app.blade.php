@@ -108,7 +108,15 @@
                 </div>
             </div>
             <div class="d-flex gap-3">
-                <a href="#" class="btn-notif"><i class="bi bi-bell fs-5"></i><span class="badge-dot"></span></a>
+                <a href="#" class="btn-notif position-relative" data-bs-toggle="modal" data-bs-target="#notifModal">
+                    <i class="bi bi-bell fs-5"></i>
+                    @if(Auth::user()->unreadNotifications->count() > 0)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">
+                            {{ Auth::user()->unreadNotifications->count() }}
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    @endif
+                </a>
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
                     <button type="submit" class="border-0 bg-transparent text-secondary p-0">
@@ -146,6 +154,66 @@
         </nav>
     </div>
 
+   <div class="modal fade" id="notifModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content rounded-4 border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold">Notifications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group list-group-flush">
+                        @forelse(Auth::user()->unreadNotifications as $notification)
+                            <div class="list-group-item border-0 px-0 py-3">
+                                <div class="d-flex gap-3">
+                                    <div class="bg-info bg-opacity-10 p-2 rounded-circle text-info" style="height:fit-content">
+                                        <i class="bi bi-info-circle"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1 small">{{ $notification->data['title'] ?? 'Notification' }}</h6>
+                                        <p class="text-muted small mb-0" style="font-size:11px">{{ $notification->data['message'] ?? '' }}</p>
+                                        <small class="text-muted" style="font-size:10px">{{ $notification->created_at->diffForHumans() }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center py-4 text-muted small">No new notifications.</div>
+                        @endforelse
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0 d-flex justify-content-between">
+                    <a href="{{ route('notifications.index') }}" class="btn btn-link text-decoration-none small text-muted">View All</a>
+
+                    @if(Auth::user()->unreadNotifications->count() > 0)
+                        <form action="{{ route('notifications.markAllRead') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-teal-light btn-sm fw-bold px-3">Mark all read</button>
+                        </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function markAllRead() {
+            fetch("{{ route('notifications.markAllRead') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                }
+            }).then(res => {
+                if(res.ok) {
+                    const badge = document.getElementById('notifBadge');
+                    if(badge) badge.remove();
+
+                    document.getElementById('notifList').innerHTML = '<div class="text-center py-4 text-muted small">All caught up!</div>';
+                }
+            });
+        }
+    </script>
 </body>
 </html>

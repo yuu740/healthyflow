@@ -11,6 +11,9 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\FastingLogController;
 use App\Http\Controllers\FoodDiaryController;
 use App\Http\Controllers\SleepLogController;
+use App\Http\Controllers\RingtoneController;
+use App\Http\Controllers\TimerPresetController;
+use App\Notifications\HydrationAlert;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -32,7 +35,11 @@ Route::middleware(['auth'])->group(function () {
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-       $rawWater = $user->waterLogs()->whereDate('logged_at', today())->sum('amount_ml');
+        if($user->unreadNotifications->count() == 0) {
+             // $user->notify(new HydrationAlert());
+        }
+
+        $rawWater = $user->waterLogs()->whereDate('logged_at', today())->sum('amount_ml');
         $rawActivity = $user->activityLogs()->whereDate('logged_at', today())->sum('duration_minutes');
         $rawSleep = $user->sleepLogs()->whereDate('logged_at', today())->sum('duration_hours');
 
@@ -41,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
         $goalSleep = $user->sleep_goal ?? 8;
         $unit = $user->preferred_unit ?? 'ml';
 
-        $conversionFactor = 29.5735; // 1 fl oz = 29.5735 ml
+        $conversionFactor = 29.5735;
 
         if ($unit == 'oz') {
             $displayWaterCurrent = round($rawWater / $conversionFactor);
@@ -58,16 +65,42 @@ Route::middleware(['auth'])->group(function () {
             'unit' => $unit
         ];
 
-        $weekly = [50, 60, 40, 80, 70, 90, 100];
+        $weeklyData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $dayName = $date->format('D');
+            $activityCount = $user->activityLogs()
+                ->whereDate('logged_at', $date)
+                ->sum('duration_minutes');
 
+            $weeklyData[] = [
+                'day' => $dayName[0],
+                'value' => $activityCount,
+                'is_today' => $i === 0
+            ];
+        }
         return view('dashboard', [
             'todayWater' => $displayWaterCurrent,
             'todayActivity' => $rawActivity,
             'todaySleep' => $rawSleep,
             'goals' => $goals,
-            'weekly' => $weekly
+            'weekly' => $weeklyData
         ]);
     })->name('dashboard');
+
+    Route::get('/timer', [TimerPresetController::class, 'index'])->name('healthy_timer');
+    Route::post('/timer/store', [TimerPresetController::class, 'store'])->name('timer.store');
+    Route::delete('/timer/{timer}', [TimerPresetController::class, 'destroy'])->name('timer.destroy');
+
+    Route::post('/settings/upload-ringtone', [RingtoneController::class, 'store'])->name('ringtone.store');
+
+    Route::post('/settings/update-ringtone', function (Request $request) {
+        $request->validate(['ringtone_id' => 'required|exists:ringtones,id']);
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $user->update(['preferred_ringtone_id' => $request->ringtone_id]);
+        return response()->json(['status' => 'success']);
+    })->name('update.ringtone');
 
     Route::get('/logs', function () {
         /** @var \App\Models\User $user */
@@ -84,11 +117,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logs/sleep', [SleepLogController::class, 'store'])->name('logs.sleep.store');
     Route::post('/logs/fasting', [FastingLogController::class, 'store'])->name('logs.fasting.store');
     Route::put('/logs/fasting/{fastingLog}', [FastingLogController::class, 'update'])->name('logs.fasting.update');
+    Route::post('/logs/food', [FoodDiaryController::class, 'store'])->name('logs.food.store');
 
     Route::post('/settings/update-goals', function (Request $request) {
         /** @var \App\Models\User $user */
         $user = Auth::user();
-
         $inputWater = $request->water_goal;
         $conversionFactor = 29.5735;
 
@@ -125,12 +158,9 @@ Route::middleware(['auth'])->group(function () {
         return back()->with('success', 'Email updated successfully!');
     })->name('update.email');
 
-    Route::get('/timer', function () { return view('healthy_timer'); })->name('healthy_timer');
-
-    Route::get('/gallery', function (\Illuminate\Http\Request $request) {
+    Route::get('/gallery', function (Request $request) {
         /** @var \App\Models\User $user */
         $user = Auth::user();
-
         $query = $user->foodDiaries();
 
         if ($request->has('date')) {
@@ -148,11 +178,19 @@ Route::middleware(['auth'])->group(function () {
         }
 
         $meals = $query->latest('logged_at')->get();
-
         return view('gallery', compact('meals'));
     })->name('gallery');
 
-    Route::post('/logs/food', [FoodDiaryController::class, 'store'])->name('logs.food.store');    Route::get('/settings', function () { return view('settings'); })->name('settings');
+    Route::post('/notifications/mark-all-read', function () {
+        Auth::user()->unreadNotifications->markAsRead();
+        return response()->json(['status' => 'success']);
+    })->name('notifications.markAllRead');
+
+    Route::get('/notifications', function () {
+        return view('notifications_all', ['notifications' => Auth::user()->notifications]);
+    })->name('notifications.index');
+
+    Route::get('/settings', function () { return view('settings'); })->name('settings');
     Route::get('/settings/about', function () { return view('about'); })->name('about');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

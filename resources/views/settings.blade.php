@@ -103,6 +103,24 @@
 
 <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
     <h6 class="fw-bold mb-4 d-flex align-items-center gap-2">
+        <i class="bi bi-music-note-list text-teal"></i> Custom Ringtones
+    </h6>
+    <form action="{{ route('ringtone.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="mb-3">
+            <label class="small text-muted fw-bold mb-2">Ringtone Name</label>
+            <input type="text" name="name" class="form-control" placeholder="e.g. My Alarm" required>
+        </div>
+        <div class="mb-3">
+            <label class="small text-muted fw-bold mb-2">Audio File (MP3/WAV)</label>
+            <input type="file" name="file" class="form-control" accept="audio/*" required>
+        </div>
+        <button type="submit" class="btn btn-teal w-100 py-2 rounded-3 fw-bold text-white">Upload Ringtone</button>
+    </form>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+    <h6 class="fw-bold mb-4 d-flex align-items-center gap-2">
         <i class="bi bi-person-fill-gear text-teal"></i> {{ __('settings.account_settings') }}
     </h6>
 
