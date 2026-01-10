@@ -14,6 +14,7 @@ use App\Http\Controllers\SleepLogController;
 use App\Http\Controllers\RingtoneController;
 use App\Http\Controllers\TimerPresetController;
 use App\Notifications\HydrationAlert;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -118,6 +119,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logs/fasting', [FastingLogController::class, 'store'])->name('logs.fasting.store');
     Route::put('/logs/fasting/{fastingLog}', [FastingLogController::class, 'update'])->name('logs.fasting.update');
     Route::post('/logs/food', [FoodDiaryController::class, 'store'])->name('logs.food.store');
+
+    Route::get('/settings', [UserController::class, 'edit'])->name('settings');
+    Route::patch('/settings/profile', [UserController::class, 'update'])->name('settings.update');
+    Route::patch('/settings/password', [UserController::class, 'updatePassword'])->name('password.update');
 
     Route::post('/settings/update-goals', function (Request $request) {
         /** @var \App\Models\User $user */
