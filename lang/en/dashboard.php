@@ -23,6 +23,7 @@ return [
         'activity_desc' => 'Keep moving!',
     ],
     'weekly' => 'Weekly Overview',
+    'see_all' => 'See All',
     'units' => [
         'liter' => 'L',
         'hours' => 'h',
@@ -34,6 +35,11 @@ return [
         'status_fasting' => 'Fasting',
         'status_eating' => 'Eating Window',
         'timer' => 'Remaining Time',
+    ],
+    'notifications' => [
+        'water_reminder' => 'Time to hydrate! Drink a glass of water now.',
+        'timer_finished' => 'Timer is done! Great job.',
+        'timer_missed'   => 'Timer missed! You were away for too long. Redirecting...',
     ],
 
 

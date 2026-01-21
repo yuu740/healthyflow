@@ -128,6 +128,7 @@
     let timerInterval;
     let secondsLeft = 0;
     let isPaused = false;
+    let missedTimeout;
     const audioPlayer = document.getElementById('timerAudio');
 
     document.addEventListener('click', function() {
@@ -159,6 +160,7 @@
     }
 
     function startTimer(name, minutes) {
+        clearTimeout(missedTimeout);
         if(minutes === 0) {
             let input = prompt("Enter duration in minutes:", "15");
             if(!input) return;
@@ -205,6 +207,7 @@
 
     function stopTimer() {
         clearInterval(timerInterval);
+        clearTimeout(missedTimeout);
         document.getElementById('activeTimerCard').classList.add('d-none');
         audioPlayer.pause();
         audioPlayer.currentTime = 0;
@@ -219,6 +222,11 @@
             alert("Time's up! (Audio autoplay blocked by browser)");
         });
 
+        missedTimeout = setTimeout(function() {
+            alert("{{ __('dashboard.notifications.timer_missed') }}"); 
+            window.location.href = "{{ route('dashboard') }}";
+        }, 60000);
+
         new bootstrap.Modal(document.getElementById('timerDoneModal')).show();
     }
 
@@ -232,6 +240,7 @@
     document.getElementById('timerDoneModal').addEventListener('hidden.bs.modal', function () {
         audioPlayer.pause();
         audioPlayer.currentTime = 0;
+        clearTimeout(missedTimeout);
     });
 </script>
 

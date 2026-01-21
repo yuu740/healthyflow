@@ -215,5 +215,33 @@
             });
         }
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const TEST_MODE = false; 
+            
+            const intervalTime = TEST_MODE ? 10000 : 3600000; 
+            const message = "{{ __('dashboard.notifications.water_reminder') }}";
+            const iconPath = "{{ asset('favicon.ico') }}"; 
+
+            if ("Notification" in window) {
+                if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+                    Notification.requestPermission();
+                }
+            }
+
+            setInterval(function() {
+                if (Notification.permission === "granted") {
+                    new Notification("HealthyFlow", {
+                        body: message,
+                        icon: iconPath,
+                        requireInteraction: true 
+                    });
+                } else {
+                    alert(message);
+                }
+            }, intervalTime);
+        });
+    </script>
 </body>
 </html>
