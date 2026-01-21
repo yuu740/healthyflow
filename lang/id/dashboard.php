@@ -23,6 +23,7 @@ return [
         'activity_desc' => 'Tetap bergerak!',
     ],
     'weekly' => 'Ikhtisar Mingguan',
+    'see_all' => 'Lihat Semua',
     'units' => [
         'liter' => 'L',
         'hours' => 'jam',
@@ -34,5 +35,10 @@ return [
         'status_fasting' => 'Berpuasa',
         'status_eating' => 'Jendela Makan',
         'timer' => 'Sisa Waktu',
+    ],
+    'notifications' => [
+        'water_reminder' => 'Waktunya minum air!',
+        'timer_finished' => 'Timer sudah selesai!',
+        'timer_missed'   => 'Timer didiamkan terlalu lama. Redirecting...',
     ],
 ];

@@ -14,6 +14,7 @@ use App\Http\Controllers\SleepLogController;
 use App\Http\Controllers\RingtoneController;
 use App\Http\Controllers\TimerPresetController;
 use App\Notifications\HydrationAlert;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -79,12 +80,16 @@ Route::middleware(['auth'])->group(function () {
                 'is_today' => $i === 0
             ];
         }
+
+        $recentActivity = $user->activityLogs()->latest('logged_at')->take(3)->get();
+
         return view('dashboard', [
             'todayWater' => $displayWaterCurrent,
             'todayActivity' => $rawActivity,
             'todaySleep' => $rawSleep,
             'goals' => $goals,
-            'weekly' => $weeklyData
+            'weekly' => $weeklyData,
+            'recentActivity' => $recentActivity,
         ]);
     })->name('dashboard');
 
@@ -105,9 +110,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logs', function () {
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $waterLogs = $user->waterLogs()->latest('logged_at')->take(3)->get();
-        $activityLogs = $user->activityLogs()->latest('logged_at')->take(3)->get();
-        $sleepLogs = $user->sleepLogs()->latest('logged_at')->take(3)->get();
+        $waterLogs = $user->waterLogs()->latest('logged_at')->get();
+        $activityLogs = $user->activityLogs()->latest('logged_at')->get();
+        $sleepLogs = $user->sleepLogs()->latest('logged_at')->get();
         return view('daily_logs', compact('waterLogs', 'activityLogs', 'sleepLogs'));
     })->name('daily_logs');
 

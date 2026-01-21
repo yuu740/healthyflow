@@ -72,6 +72,37 @@
     </div>
 </div>
 
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="fw-bold m-0">Recent Activity</h6>
+    
+    <a href="{{ route('daily_logs') }}" class="text-decoration-none small fw-bold" style="font-size: 0.8rem;">
+        {{ __('dashboard.see_all') }} <i class="bi bi-chevron-right"></i>
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-4">
+    @forelse($recentActivity as $log)
+        <div class="d-flex align-items-center mb-3 last:mb-0">
+            <div class="bg-light rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="bi bi-person-walking text-primary"></i>
+            </div>
+            <div class="flex-grow-1">
+                <p class="mb-0 fw-bold text-dark" style="font-size: 0.9rem;">{{ $log->activity_name }}</p>
+                <small class="text-muted">{{ $log->duration_minutes }} {{ __('dashboard.units.mins') }}</small>
+            </div>
+            <small class="text-muted" style="font-size: 0.75rem;">
+                {{ $log->logged_at->format('H:i') }}
+            </small>
+        </div>
+        
+        @if(!$loop->last) <hr class="my-2 text-muted opacity-25"> @endif
+    @empty
+        <div class="text-center py-2">
+            <small class="text-muted">No activities yet today.</small>
+        </div>
+    @endforelse
+</div>
+
 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
     <h6 class="fw-bold mb-4">{{ __('dashboard.weekly') }}</h6>
     <div class="d-flex justify-content-between align-items-end" style="height: 100px;">
