@@ -120,10 +120,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/logs/fasting/{fastingLog}', [FastingLogController::class, 'update'])->name('logs.fasting.update');
     Route::post('/logs/food', [FoodDiaryController::class, 'store'])->name('logs.food.store');
 
-    Route::get('/settings', [UserController::class, 'edit'])->name('settings');
-    Route::patch('/settings/profile', [UserController::class, 'update'])->name('settings.update');
-    Route::patch('/settings/password', [UserController::class, 'updatePassword'])->name('password.update');
-
     Route::post('/settings/update-goals', function (Request $request) {
         /** @var \App\Models\User $user */
         $user = Auth::user();
