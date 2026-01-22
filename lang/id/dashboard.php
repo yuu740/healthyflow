@@ -23,6 +23,7 @@ return [
         'activity_desc' => 'Tetap bergerak!',
     ],
     'weekly' => 'Ikhtisar Mingguan',
+    'recent_activity' => 'Aktivitas Terkini',
     'see_all' => 'Lihat Semua',
     'units' => [
         'liter' => 'L',
