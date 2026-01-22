@@ -7,7 +7,7 @@
 * **Dashboard:** Real-time progress bars for water, sleep, and activity goals.
 * **Daily Logs:** Track detailed logs for Water, Food, Sleep, Fasting, and Activity.
 * **Visual Food Diary:** Upload photos of meals with notes (Gallery).
-* **Healthy Timer:** Built-in countdown timer for workouts or meditation (with background notification support).
+* **Healthy Timer:** Built-in countdown timer for workouts or meditation.
 * **Localization:** Fully supports **English** and **Indonesian (Bahasa Indonesia)**.
 * **Responsive Design:** Optimized for mobile and desktop viewing.
 
