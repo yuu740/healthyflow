@@ -168,8 +168,8 @@
         }
 
         clearInterval(timerInterval);
-        // secondsLeft = minutes * 60;
-        secondsLeft = 5;
+        secondsLeft = minutes * 60;
+        // secondsLeft = 5;
 
         document.getElementById('timerLabel').innerText = name;
         document.getElementById('activeTimerCard').classList.remove('d-none');

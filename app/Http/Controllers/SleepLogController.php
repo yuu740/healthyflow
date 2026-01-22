@@ -20,4 +20,14 @@ class SleepLogController extends Controller
 
         return redirect()->back()->with('success', 'Sleep logged!');
     }
+
+    public function destroy(Request $request, SleepLog $sleepLog)
+    {
+        if ($sleepLog->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
+        $sleepLog->delete();
+        return back()->with('success', 'Sleep log deleted.');
+    }
 }

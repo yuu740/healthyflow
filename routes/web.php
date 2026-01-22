@@ -93,6 +93,9 @@ Route::middleware(['auth'])->group(function () {
         ]);
     })->name('dashboard');
 
+    Route::delete('/logs/water/{waterLog}', [WaterLogController::class, 'destroy'])->name('logs.water.destroy');
+    Route::delete('/logs/sleep/{sleepLog}', [SleepLogController::class, 'destroy'])->name('logs.sleep.destroy');
+
     Route::get('/timer', [TimerPresetController::class, 'index'])->name('healthy_timer');
     Route::post('/timer/store', [TimerPresetController::class, 'store'])->name('timer.store');
     Route::delete('/timer/{timer}', [TimerPresetController::class, 'destroy'])->name('timer.destroy');

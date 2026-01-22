@@ -21,4 +21,14 @@ class WaterLogController extends Controller
 
         return redirect()->back()->with('success', 'Hydration track logged!');
     }
+
+    public function destroy(Request $request, WaterLog $waterLog)
+    {
+        if ($waterLog->user_id !== $request->user()->id) {
+            abort(403);
+        }
+        
+        $waterLog->delete();
+        return back()->with('success', 'Water log deleted.');
+    }
 }
