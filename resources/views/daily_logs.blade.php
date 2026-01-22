@@ -18,7 +18,7 @@
             <div class="bg-primary bg-opacity-10 p-2 rounded-circle text-primary">
                 <i class="bi bi-droplet-fill fs-5"></i>
             </div>
-            <span class="small fw-bold text-dark" style="font-size: 11px;">Water</span>
+            <span class="small fw-bold text-dark" style="font-size: 11px;">{{ __('logs.types.water') }}</span>
         </button>
     </div>
 
@@ -27,7 +27,7 @@
             <div class="p-2 rounded-circle text-purple bg-opacity-10" style="background-color: #f3e5f5; color: #7b1fa2;">
                 <i class="bi bi-moon-stars-fill fs-5"></i>
             </div>
-            <span class="small fw-bold text-dark" style="font-size: 11px;">Sleep</span>
+            <span class="small fw-bold text-dark" style="font-size: 11px;">{{ __('logs.types.sleep') }}</span>
         </button>
     </div>
 
@@ -36,7 +36,7 @@
             <div class="bg-warning bg-opacity-10 p-2 rounded-circle text-warning">
                 <i class="bi bi-fire fs-5"></i>
             </div>
-            <span class="small fw-bold text-dark" style="font-size: 11px;">Activity</span>
+            <span class="small fw-bold text-dark" style="font-size: 11px;">{{ __('logs.types.activity') }}</span>
         </button>
     </div>
 </div>
@@ -58,7 +58,7 @@
                 <i class="bi bi-droplet-fill text-primary"></i>
             </div>
             <div>
-                <h6 class="fw-bold mb-0 text-dark">Water</h6>
+                <h6 class="fw-bold mb-0 text-dark">{{ __('logs.types.water') }}</h6>
                 <small class="text-muted">{{ $log->logged_at->format('H:i') }}</small>
             </div>
         </div>
@@ -67,7 +67,7 @@
             <span class="fw-bold text-primary d-block">+{{ $log->amount_ml }} ml</span>
             <form action="{{ route('logs.water.destroy', $log->id) }}" method="POST" onsubmit="return confirm('Delete this log?')">
                 @csrf @method('DELETE')
-                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">Delete</button>
+                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">{{ __('logs.actions.delete') }}</button>
             </form>
         </div>
         </div>
@@ -82,7 +82,7 @@
                 <i class="bi bi-moon-stars-fill" style="color: #7b1fa2;"></i>
             </div>
             <div>
-                <h6 class="fw-bold mb-0 text-dark">Sleep</h6>
+                <h6 class="fw-bold mb-0 text-dark">{{ __('logs.types.sleep') }}</h6>
                 <small class="text-muted">{{ $log->logged_at->format('d M') }}</small>
             </div>
         </div>
@@ -91,7 +91,7 @@
             <span class="fw-bold d-block" style="color: #7b1fa2;">{{ $log->duration_hours }} hrs</span>
             <form action="{{ route('logs.sleep.destroy', $log->id) }}" method="POST" onsubmit="return confirm('Delete this log?')">
                 @csrf @method('DELETE')
-                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">Delete</button>
+                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">{{ __('logs.actions.delete') }}</button>
             </form>
         </div>
         </div>
@@ -114,7 +114,7 @@
             <span class="fw-bold text-dark d-block">{{ $log->duration_minutes }} min</span>
             <form action="{{ route('logs.activity.destroy', $log->id) }}" method="POST">
                 @csrf @method('DELETE')
-                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">Delete</button>
+                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">{{ __('logs.actions.delete') }}</button>
             </form>
         </div>
     </div>
@@ -125,7 +125,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 border-0">
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold">Add Hydration</h5>
+                <h5 class="modal-title fw-bold">{{ __('logs.actions.add') }} {{ __('logs.types.water') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -137,7 +137,7 @@
                         <input type="number" name="amount_ml" class="form-control py-3" placeholder="Ex: 250" required>
                         <span class="input-group-text bg-light">ml</span>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">Save Record</button>
+                    <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold">{{ __('logs.actions.save') }}</button>
                 </form>
             </div>
         </div>
@@ -148,7 +148,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 border-0">
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold">Add Sleep</h5>
+                <h5 class="modal-title fw-bold">{{ __('logs.actions.add') }} {{ __('logs.types.sleep') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -160,7 +160,7 @@
                         <input type="number" step="0.1" name="duration_hours" class="form-control py-3" placeholder="Ex: 7.5" required>
                         <span class="input-group-text bg-light">hours</span>
                     </div>
-                    <button type="submit" class="btn text-white w-100 py-3 rounded-3 fw-bold" style="background-color: #7b1fa2;">Save Record</button>
+                    <button type="submit" class="btn text-white w-100 py-3 rounded-3 fw-bold" style="background-color: #7b1fa2;">{{ __('logs.actions.save') }}</button>
                 </form>
             </div>
         </div>
@@ -171,7 +171,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 border-0">
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold">Add Activity</h5>
+                 <h5 class="modal-title fw-bold">{{ __('logs.actions.add') }} {{ __('logs.types.activity') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -179,14 +179,14 @@
                     @csrf
                     <input type="hidden" name="logged_at" value="{{ now() }}">
                     <div class="mb-3">
-                        <label class="small text-muted fw-bold mb-2">Activity Name</label>
+                        <label class="small text-muted fw-bold mb-2">{{ __('logs.field.activity_name') }}</label>
                         <input type="text" name="activity_name" class="form-control py-3" placeholder="Running, Gym, Yoga..." required>
                     </div>
                     <div class="mb-3">
-                        <label class="small text-muted fw-bold mb-2">Duration (mins)</label>
+                         <label class="small text-muted fw-bold mb-2">{{ __('logs.field.duration') }}</label>
                         <input type="number" name="duration_minutes" class="form-control py-3" placeholder="Ex: 45" required>
                     </div>
-                    <button type="submit" class="btn btn-warning text-white w-100 py-3 rounded-3 fw-bold">Save Record</button>
+                    <button type="submit" class="btn btn-warning text-white w-100 py-3 rounded-3 fw-bold">{{ __('logs.actions.save') }}</button>
                 </form>
             </div>
         </div>

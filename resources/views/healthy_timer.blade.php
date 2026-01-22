@@ -72,24 +72,24 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 border-0">
             <div class="modal-header border-0 pb-0">
-                <h5 class="fw-bold">New Timer</h5>
+                <h5 class="fw-bold">{{ __('timer.modal.title') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('timer.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label class="small fw-bold text-muted mb-1">Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="e.g. Yoga, Plank" required>
+                        <label class="small fw-bold text-muted mb-1">{{ __('timer.modal.name_label') }}</label>
+                        <input type="text" name="name" class="form-control" placeholder="{{ __('timer.modal.name_placeholder') }}" required>
                     </div>
                     <div class="mb-3">
-                        <label class="small fw-bold text-muted mb-1">Duration (minutes)</label>
-                        <input type="number" name="duration_minutes" class="form-control" placeholder="0 for manual input" value="0" required>
-                        <small class="text-muted fst-italic">Set 0 to ask duration every time.</small>
+                        <label class="small fw-bold text-muted mb-1">{{ __('timer.modal.duration_label') }}</label>
+                        <input type="number" name="duration_minutes" class="form-control" placeholder="{{ __('timer.modal.duration_placeholder') }}" value="0" required>
+                        <small class="text-muted fst-italic">{{ __('timer.modal.duration_help') }}</small>
                     </div>
 
                     <div class="mb-3">
-                        <label class="small fw-bold text-muted mb-2">Select Icon</label>
+                        <label class="small fw-bold text-muted mb-2">{{ __('timer.modal.icon_label') }}</label>
                         <div class="d-flex gap-2 overflow-auto pb-2" style="scrollbar-width: thin;">
                             @foreach(['hourglass-split', 'wind', 'moon-stars', 'cup-hot', 'bicycle', 'book', 'code', 'droplet', 'fire'] as $icon)
                                 <input type="radio" class="btn-check" name="icon" id="icon_{{ $icon }}" value="{{ $icon }}" {{ $loop->first ? 'checked' : '' }} autocomplete="off">
@@ -102,7 +102,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-teal w-100 rounded-pill fw-bold shadow-sm">Save Timer</button>
+                    <button type="submit" class="btn btn-teal w-100 rounded-pill fw-bold shadow-sm">{{ __('timer.modal.save_btn') }}</button>
                 </form>
             </div>
         </div>

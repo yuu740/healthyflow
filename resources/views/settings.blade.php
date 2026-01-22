@@ -103,19 +103,19 @@
 
 <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
     <h6 class="fw-bold mb-4 d-flex align-items-center gap-2">
-        <i class="bi bi-music-note-list text-teal"></i> Custom Ringtones
+        <i class="bi bi-music-note-list text-teal"></i> {{ __('settings.ringtone.title') }}
     </h6>
     <form action="{{ route('ringtone.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label class="small text-muted fw-bold mb-2">Ringtone Name</label>
-            <input type="text" name="name" class="form-control" placeholder="e.g. My Alarm" required>
+            <label class="small text-muted fw-bold mb-2">{{ __('settings.ringtone.name_label') }}</label>
+            <input type="text" name="name" class="form-control" placeholder="{{ __('settings.ringtone.name_placeholder') }}" required>
         </div>
         <div class="mb-3">
-            <label class="small text-muted fw-bold mb-2">Audio File (MP3/WAV)</label>
+            <label class="small text-muted fw-bold mb-2">{{ __('settings.ringtone.file_label') }}</label>
             <input type="file" name="file" class="form-control" accept="audio/*" required>
         </div>
-        <button type="submit" class="btn btn-teal w-100 py-2 rounded-3 fw-bold text-white">Upload Ringtone</button>
+        <button type="submit" class="btn btn-teal w-100 py-2 rounded-3 fw-bold text-white">{{ __('settings.ringtone.upload_btn') }}</button>
     </form>
 </div>
 
@@ -201,11 +201,9 @@
         if (isNaN(currentValue)) return;
 
         if (targetUnit === 'oz') {
-            // ML ke OZ
             inputField.value = Math.round(currentValue / 29.5735);
             unitLabel.innerText = 'oz';
         } else {
-            // OZ ke ML
             inputField.value = Math.round(currentValue * 29.5735);
             unitLabel.innerText = 'ml';
         }
