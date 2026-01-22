@@ -60,14 +60,8 @@ Before setting up, ensure you have the following installed:
     ```bash
     php artisan migrate
     ```
-
-6.  **Link Storage (Crucial for Images)**
-    To ensure uploaded food photos appear in the gallery, create the symbolic link:
-    ```bash
-    php artisan storage:link
-    ```
-
-7.  **Run the Application**
+    
+6.  **Run the Application**
     ```bash
     php artisan serve
     ```
