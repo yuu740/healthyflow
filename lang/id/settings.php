@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'ringtone' => [
+        'title' => 'Nada Dering Kustom',
+        'name_label' => 'Nama Nada Dering',
+        'name_placeholder' => 'Cth: Alarm Saya',
+        'file_label' => 'File Audio (MP3/WAV)',
+        'upload_btn' => 'Unggah Nada Dering',
+    ],
     'title' => 'Pengaturan',
     'subtitle' => 'Sesuaikan pengalaman HealthyFlow Anda',
     'localization' => 'Lokalisasi',

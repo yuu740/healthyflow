@@ -13,6 +13,16 @@ return [
         'sleep' => 'Power Nap',
         'sleep_desc' => 'Quick recharge for better alertness.',
     ],
+    'modal' => [
+        'title' => 'New Timer',
+        'name_label' => 'Name',
+        'name_placeholder' => 'e.g. Yoga, Plank',
+        'duration_label' => 'Duration (minutes)',
+        'duration_placeholder' => '0 for manual input',
+        'duration_help' => 'Set 0 to ask duration every time.',
+        'icon_label' => 'Select Icon',
+        'save_btn' => 'Save Timer',
+    ],
     'start' => 'Start Timer',
     'stop' => 'Stop',
 ];

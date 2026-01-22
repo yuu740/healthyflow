@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'ringtone' => [
+        'title' => 'Custom Ringtones',
+        'name_label' => 'Ringtone Name',
+        'name_placeholder' => 'e.g. My Alarm',
+        'file_label' => 'Audio File (MP3/WAV)',
+        'upload_btn' => 'Upload Ringtone',
+    ],
     'title' => 'Settings',
     'subtitle' => 'Customize your HealthyFlow experience',
     'localization' => 'Localization',
