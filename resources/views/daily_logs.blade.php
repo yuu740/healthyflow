@@ -62,8 +62,15 @@
                 <small class="text-muted">{{ $log->logged_at->format('H:i') }}</small>
             </div>
         </div>
-        <span class="fw-bold text-primary">+{{ $log->amount_ml }} ml</span>
-    </div>
+        
+        <div class="text-end">
+            <span class="fw-bold text-primary d-block">+{{ $log->amount_ml }} ml</span>
+            <form action="{{ route('logs.water.destroy', $log->id) }}" method="POST" onsubmit="return confirm('Delete this log?')">
+                @csrf @method('DELETE')
+                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">Delete</button>
+            </form>
+        </div>
+        </div>
 </div>
 @endforeach
 
@@ -79,8 +86,15 @@
                 <small class="text-muted">{{ $log->logged_at->format('d M') }}</small>
             </div>
         </div>
-        <span class="fw-bold" style="color: #7b1fa2;">{{ $log->duration_hours }} hrs</span>
-    </div>
+
+        <div class="text-end">
+            <span class="fw-bold d-block" style="color: #7b1fa2;">{{ $log->duration_hours }} hrs</span>
+            <form action="{{ route('logs.sleep.destroy', $log->id) }}" method="POST" onsubmit="return confirm('Delete this log?')">
+                @csrf @method('DELETE')
+                <button class="btn btn-link p-0 text-danger" style="font-size:10px; text-decoration:none;">Delete</button>
+            </form>
+        </div>
+        </div>
 </div>
 @endforeach
 
