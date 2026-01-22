@@ -72,12 +72,13 @@
     </div>
 </div>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h6 class="fw-bold m-0">Recent Activity</h6>
-    
-    <a href="{{ route('daily_logs') }}" class="text-decoration-none small fw-bold" style="font-size: 0.8rem;">
-        {{ __('dashboard.see_all') }} <i class="bi bi-chevron-right"></i>
-    </a>
+<div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="fw-bold m-0">{{ __('dashboard.recent_activity') ?? 'Recent Activity' }}</h6>
+        <a href="{{ route('daily_logs') }}" class="text-decoration-none small fw-bold" style="font-size: 0.8rem;">
+            {{ __('dashboard.see_all') }} <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
 </div>
 
 <div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-4">

@@ -23,6 +23,7 @@ return [
         'activity_desc' => 'Keep moving!',
     ],
     'weekly' => 'Weekly Overview',
+    'recent_activity' => 'Recent Activity',
     'see_all' => 'See All',
     'units' => [
         'liter' => 'L',
