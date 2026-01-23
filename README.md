@@ -26,7 +26,7 @@ Before setting up, ensure you have the following installed:
 
 1.  **Clone the Repository**
     ```bash
-    git clone [github link]
+    git clone https://github.com/yuu740/healthyflow.git
     cd healthyflow
     ```
 
